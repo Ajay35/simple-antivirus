@@ -5,9 +5,14 @@ from threading import Thread
 import algorithm
 import utility
 import docker_helper as dh
+import update
 
 exelogpath="data/exelogs/"
 txtlogpath="data/txtlogs/"
+
+
+
+
 
 def main():
     arguments=sys.argv[1:]
@@ -16,6 +21,7 @@ def main():
         print ("Incorrect arguments")
         return 	
     if arguments[0]=='-o' and arguments[1] =='1':
+        print("\n")
         print("**********------------Signature based virus detection-------------************")
         print("\n")
         if arguments[2]=="-f":
@@ -28,6 +34,7 @@ def main():
             print("Usage:   python3 antivirus.py -o 1 -f filepath")            
          
     elif arguments[0] == "-o" and arguments[1]=="2":
+        print("\n")
         print("***********----------------Behaviour analysis-------------*********************")
         print("\n")
         if arguments[2]=="-f":
@@ -45,7 +52,16 @@ def main():
         else:
             print("Incorrect Arguments")
             print("Usage:   python3 antivirus.py -o 1 -f filepath")
+    choice=input("Would you like to update the anti-virus for more security?\n[a] Yes\n[b] No\nSelection: ")
+    if choice == "a":
+        print("Updating antivirus")
+        update.update_virus_signatures()
+    elif choice=="b":
+        print ("Thank you for using antivirus.")
+        print("--------------------")
 
 
 if __name__ == '__main__':
     main()
+
+

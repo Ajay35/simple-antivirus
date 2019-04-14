@@ -1,3 +1,3 @@
 Virus : Found
-CPU Usage (%) : 219.3
-Memory Usage : 77.45
+CPU Usage (%) : 226.03
+Memory Usage : 83.94
