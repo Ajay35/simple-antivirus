@@ -13,4 +13,4 @@ source--
 		  This directory can be updated if FTP is configured.
 		--txtlogs (Directory) sample text test files for signature scan (Path can be this or absolute)
 		--exelogs (Directory) sample executable jar files for behavioural scan. (Path can be this relatove or absolute)
-		--config :file used for searching path for signature folder
+		--config :file used for searching path for signature folder.This file need to be adjusted before exucting the app.
