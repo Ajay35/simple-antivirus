@@ -3,6 +3,11 @@ import sys
 import re
 import algorithm
 import docker_helper as dh
+import update
+from config import config
+from config import errors
+from config import banners
+
 
 def resource_log(cpu,mem,logpath):
 
@@ -19,6 +24,13 @@ def resource_log(cpu,mem,logpath):
         logfile.write(str(mem))
         logfile.write("\n")
     print("Log saved at data/exelogs")
+    choice=input(banners['update_alert'])
+    if choice == "a":
+        print("Updating antivirus")
+        update.update_virus_signatures()
+    elif choice=="b":
+        print (banners['thank_you'])
+    print("--------------------")
     
     
 
@@ -47,7 +59,7 @@ def process_output(s,logpath):
 
     print("CPU Usage:",float(cpu_per))
     print("Memory Usage:",float(mem_use))
-
+    print("\n")
     if float(cpu_per)> 80.0 or float(mem_use)>35:
         print('\033[91m' + "[High Resource Usage Deetected :Virus Found]")
     else:
@@ -84,17 +96,20 @@ def log_writer(logpath,virusnames):
     print("Log written at data/txtlogs ")
     print("---------------------------------------")
     output.close()
+    choice=input(banners['update_alert'])
+    if choice == "a":
+        print("Updating antivirus")
+        update.update_virus_signatures()
+    elif choice=="b":
+        print (banners['thank_you'])
+        print("--------------------")
 
-def scanner(filename,config,logpath):
-
-    #print("quarantine mode",quanrantine_mode)
-    virussignpath= config[0].split(':')[1]
-    #quarantine_path=config[1].split(':')[1]
+def scanner(filename,virussignpath,logpath):
 
     exists = os.path.exists(filename)
     is_file=os.path.isfile(filename)
     if exists is False:
-        print("File not found")
+        print(errors['file_error'])
         return -1
     file_text=''
     if is_file is True:
@@ -117,7 +132,7 @@ def scanner(filename,config,logpath):
         if flag is False:
             print ('\033[92m' + "No Virus Found [Clean]")
         else:
-            choice=input("What do you want to do with the infected file?\n[a] Remove file\n[b] Do Nothing\nSelection: ")
+            choice=input(banners['input_alert'])
             if choice == "a":
                 os.remove(filename)
                 print("File successfully removed!")
@@ -145,12 +160,12 @@ def scanner(filename,config,logpath):
             if flag is False:
                 print ('\033[92m' + "No Virus Found [Clean] in ",single_file)
             else:
-                choice=input("What do you want to do with the infected file?\n[a] Remove file\n[b] Nothing\n[c] Add in Quanrantine list \nSelection: ")
+                choice=input(banners['input_alert'])
                 if choice == "a":
                     os.remove(filename+"/"+single_file)
                     print("File successfully removed!")
                 elif choice=="b":
-                    print ("Be Careful.File might harm your computer data")
+                    print (banners['alert_msg'])
                 elif choice=="c":
                     print("Add in quarantine")
             log_writer(single_file,virusnames)
