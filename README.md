@@ -15,3 +15,5 @@ source--
 		--exelogs (Directory) sample executable jar files for behavioural scan. (Path can be this relatove or absolute)
 		--config.py :file used for paths/messages/errors/commands for necessary for app
 			This file need to be edited before exucting the app.
+
+Part 
