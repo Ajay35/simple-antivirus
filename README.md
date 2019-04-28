@@ -16,4 +16,4 @@ source--
 		--config.py :file used for paths/messages/errors/commands for necessary for app
 			This file need to be edited before exucting the app.
 
-Part 
+Part of SNS course work @ IIITH 
